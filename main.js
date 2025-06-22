@@ -1,21 +1,24 @@
-document.getElementById("btn").addEventListener("click", fetchData);
-async function fetchData() {
+document.getElementById("getApiData").addEventListener("click", fetchApiData);
+
+async function fetchApiData() {
   try {
     const response = await fetch("https://dummyjson.com/products");
     const data = await response.json();
-    const product = data.products[0];
-    const newrow = `<tr>
-    <td>${product.id}</td>
-    <td>${product.title}</td>
-    <td>${product.price}</td>
-    </tr>
-    `;
-    document.querySelector("#tablue tbody").innerHTML = newrow;
 
-    document.getElementById("id").value = product.id;
-    document.getElementById("productname").value = product.title;
-    document.getElementById("price").value = product.price;
+    const tbody = document.querySelector("#tablue tbody");
+
+    data.products.forEach((product) => {
+      const row = document.createElement("tr");
+      row.innerHTML = `
+        <td>${product.id}</td>
+        <td>${product.title}</td>
+        <td>${product.price}</td>
+      `;
+      tbody.appendChild(row);
+    });
   } catch (error) {
-    document.querySelector("#tablue tbody").innerHTML = `${error.message}`;
+    document.querySelector("#tablue tbody").innerHTML = `
+     ${error.message}
+    `;
   }
 }
