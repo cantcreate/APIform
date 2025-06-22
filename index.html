@@ -3,11 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>API form</title>
+      
+    <title>Fetch API</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    
+    <div class="Api-form">
+        <form id="form">
+            <h3>Product detail</h3>
+            <div class="prodetail">
+                <label for="id">ID:</label>
+                <input type="number" id = "id" name = "id" required>
+                <br>
+            </div>
+            <div class="prodetail">
+                <label for="id">ProductName:</label>
+                <input type="name" id = "productname" name = "productname" required>
+                <br>
+            </div>
+            <div class="prodetail">
+                <label for="price">Price:</label>
+                <input type = "number" id="price" name = "price" required>
+                <br>
+            </div>
+            <button type="button" id="btn">Add Product!</button>
+        </form>
+        <table id="tablue">
+            <thead>
+                <tr id="tablerow">
+                    <th>ID</th>
+                    <th>ProductName</th>
+                    <th>Price</th>
+                </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
+    </div>
 </body>
 <script src="main.js"></script>
 </html>
