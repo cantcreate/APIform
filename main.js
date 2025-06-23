@@ -1,6 +1,27 @@
-document.getElementById("getApiData").addEventListener("click", fetchApiData);
+function myfunction() {
+  const entry = {
+    id: document.getElementById("id").value,
+    producttitle: document.getElementById("productname").value,
+    price: document.getElementById("price").value,
+  };
+  addToTable(entry);
+  document.getElementById("form").reset();
+}
+function addToTable(entry) {
+  const table = document
+    .getElementById("tablue")
+    .getElementsByTagName("tbody")[0];
+  const row = table.insertRow(0);
 
+  row.insertCell(0).textContent = entry.id;
+  row.insertCell(1).textContent = entry.producttitle;
+  row.insertCell(2).textContent = entry.price;
+}
+
+document.getElementById("getApiData").addEventListener("click", fetchApiData);
 async function fetchApiData() {
+  const getApiData = document.getElementById("getApiData");
+  getApiData.disabled = true;
   try {
     const response = await fetch("https://dummyjson.com/products");
     const data = await response.json();
