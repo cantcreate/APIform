@@ -1,6 +1,6 @@
 window.onload = firstload;
 
-function myfunction() {
+function addformdata() {
   const entry = {
     id: document.getElementById("id").value,
     producttitle: document.getElementById("productname").value,
