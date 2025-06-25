@@ -28,7 +28,14 @@ label {
     display: block;
     font-style: italic;
 }
-#addproductdata, #getApiData, #addproduct, #deleteproduct {
+#iddeletebutton {
+    color: white;
+    background-color: #01361C;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-style: italic;
+    padding: 5px 20px;
+}
+#iddeletebutton,#addproductdata, #getApiData, #addproduct, #deleteproduct {
     margin-top: 9px;
     border-color: #01361C;
     border-radius: 9px;
@@ -39,7 +46,6 @@ label {
 #addproductdata:hover {
     transform: scale(1.3);
 }
-
 #getApiData:hover {
     transform: scale(1.3);
 }
@@ -47,6 +53,9 @@ label {
     transform: scale(1.3);
 }
 #deleteproduct:hover {
+    transform: scale(1.3);
+}
+#iddeletebutton:hover {
     transform: scale(1.3);
 }
 #productname, #id, #price {

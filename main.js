@@ -28,17 +28,24 @@ function displayProducts(products) {
   const tbody = document.querySelector("#tablue tbody");
   tbody.innerHTML = "";
 
-  products.forEach((product) => {
+  products.forEach((products, index) => {
     const row = document.createElement("tr");
     row.innerHTML = `
-        <td>${product.id}</td>
-        <td>${product.title}</td>
-        <td>${product.price}</td>
+        <td>${products.id}</td>
+        <td>${products.title}</td>
+        <td>${products.price}</td>
+        <td><button onclick="deleteRow(${index})" id="iddeletebutton"><i class="fa-solid fa-trash"></i></button></td>
+
       `;
     tbody.appendChild(row);
   });
 }
-
+function deleteRow(index) {
+  const products = JSON.parse(localStorage.getItem(storage)) || [];
+  products.splice(index, 1);
+  localStorage.setItem(storage, JSON.stringify(products));
+  displayProducts(products);
+}
 document.getElementById("deleteproduct").onclick = function () {
   localStorage.clear();
   location.reload();
