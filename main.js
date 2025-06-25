@@ -1,57 +1,52 @@
-window.onload = firstload;
-
-function addformdata() {
-  const entry = {
-    id: document.getElementById("id").value,
-    producttitle: document.getElementById("productname").value,
-    price: document.getElementById("price").value,
-  };
-
-  const entries = JSON.parse(localStorage.getItem("formentries")) || [];
-  entries.push(entry);
-  localStorage.setItem("formentries", JSON.stringify(entries));
-
-  addToTable(entry);
-
-  document.getElementById("form").reset();
-}
-function firstload() {
-  const saved = JSON.parse(localStorage.getItem("formentries")) || [];
-  saved.forEach((entry) => addToTable(entry));
-}
-function addToTable(entry) {
-  const table = document
-    .getElementById("tablue")
-    .getElementsByTagName("tbody")[0];
-  const row = table.insertRow(0);
-
-  row.insertCell(0).textContent = entry.id;
-  row.insertCell(1).textContent = entry.producttitle;
-  row.insertCell(2).textContent = entry.price;
-}
-
+const storage = "product";
+document.addEventListener("DOMContentLoaded", () => {
+  const savedData = localStorage.getItem(storage);
+  if (savedData) {
+    const data = JSON.parse(savedData);
+    displayProducts(data);
+  }
+});
 document.getElementById("getApiData").addEventListener("click", fetchApiData);
+
 async function fetchApiData() {
-  const getApiData = document.getElementById("getApiData");
-  getApiData.disabled = true;
+  const getApi = document.getElementById("getApiData");
+  getApi.disabled = true;
+
   try {
     const response = await fetch("https://dummyjson.com/products");
     const data = await response.json();
 
-    const tbody = document.querySelector("#tablue tbody");
-
-    data.products.forEach((product) => {
-      const row = document.createElement("tr");
-      row.innerHTML = `
-        <td>${product.id}</td>
-        <td>${product.title}</td>
-        <td>${product.price}</td>
-      `;
-      tbody.appendChild(row);
-    });
+    localStorage.setItem(storage, JSON.stringify(data.products));
+    displayProducts(data.products);
   } catch (error) {
     document.querySelector("#tablue tbody").innerHTML = `
-     ${error.message}
-    `;
+        ${error.message}
+      `;
   }
 }
+function displayProducts(products) {
+  const tbody = document.querySelector("#tablue tbody");
+  tbody.innerHTML = "";
+
+  products.forEach((products, index) => {
+    const row = document.createElement("tr");
+    row.innerHTML = `
+        <td>${products.id}</td>
+        <td>${products.title}</td>
+        <td>${products.price}</td>
+        <td><button onclick="deleteRow(${index})" id="iddeletebutton"><i class="fa-solid fa-trash"></i></button></td>
+
+      `;
+    tbody.appendChild(row);
+  });
+}
+function deleteRow(index) {
+  const products = JSON.parse(localStorage.getItem(storage)) || [];
+  products.splice(index, 1);
+  localStorage.setItem(storage, JSON.stringify(products));
+  displayProducts(products);
+}
+document.getElementById("deleteproduct").onclick = function () {
+  localStorage.clear();
+  location.reload();
+};
