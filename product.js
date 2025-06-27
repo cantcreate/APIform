@@ -10,8 +10,8 @@ window.onload = function () {
         price: document.getElementById("price").value,
       };
 
-      const products = JSON.parse(localStorage.getItem("product")) || [];
-      products.unshift(entry);
+      const existing = JSON.parse(localStorage.getItem("product")) || [];
+      const products = [entry, ...existing];
       localStorage.setItem("product", JSON.stringify(products));
 
       document.getElementById("form").reset();
