@@ -1,16 +1,18 @@
+const storage = "product";
+
 window.onload = function () {
   const addBtn = document.getElementById("addproductdata");
   if (addBtn) {
     addBtn.onclick = function () {
       const entry = {
         id: document.getElementById("id").value,
-        producttitle: document.getElementById("productname").value,
+        title: document.getElementById("productname").value,
         price: document.getElementById("price").value,
       };
 
-      const entries = JSON.parse(localStorage.getItem("formentries")) || [];
-      entries.push(entry);
-      localStorage.setItem("formentries", JSON.stringify(entries));
+      const existing = JSON.parse(localStorage.getItem("product")) || [];
+      const products = [entry, ...existing];
+      localStorage.setItem("product", JSON.stringify(products));
 
       document.getElementById("form").reset();
 
@@ -27,7 +29,7 @@ window.onload = function () {
 };
 
 function firstload() {
-  const saved = JSON.parse(localStorage.getItem("formentries")) || [];
+  const saved = JSON.parse(localStorage.getItem("product")) || [];
   saved.forEach((entry) => addToTable(entry));
 }
 
@@ -38,6 +40,6 @@ function addToTable(entry) {
   const row = tableBody.insertRow(0);
 
   row.insertCell(0).textContent = entry.id;
-  row.insertCell(1).textContent = entry.producttitle;
+  row.insertCell(1).textContent = entry.title;
   row.insertCell(2).textContent = entry.price;
 }
